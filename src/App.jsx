@@ -1,10 +1,9 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import EmailBody from "./components/EmailBody";
 import EmailList from "./components/EmailList";
 import FilterNav from "./components/FilterNav";
 import emailsPageDataContext from "./context/emailsPageDataContext";
 
-// const emailDataContext = createContext();
 function App() {
   const [currentEmail, setCurrentEmail] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);

@@ -14,14 +14,6 @@ const FilterNav = () => {
       <div className="flex gap-2 items-center">
         <span className="text-textColor">Filter By:</span>
         <ul className="flex gap-2">
-          {/* <li
-            onClick={(e) => handleFilterClick(e)}
-            className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
-              currentFilter == "All Emails" ? "bg-filterButtonColor" : ""
-            }`}
-          >
-            All Emails
-          </li> */}
           <li
             onClick={(e) => handleFilterClick(e)}
             className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${

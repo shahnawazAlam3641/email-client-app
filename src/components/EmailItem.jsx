@@ -4,11 +4,9 @@ import AlphabetImg from "./AlphabetImg";
 import emailsPageDataContext from "../context/emailsPageDataContext";
 
 const EmailItem = ({ email }) => {
-  const { date, short_description, subject, from, favourite, read, id } = email;
+  const { date, short_description, subject, from, favourite, id } = email;
 
   const { currentEmail } = useContext(emailsPageDataContext);
-
-  //   const imgAlphabet = from?.name.split("")[0].toUpperCase();
 
   const dateString = useDateTimeStamp(date);
 
@@ -18,7 +16,7 @@ const EmailItem = ({ email }) => {
         id == currentEmail?.id ? "border-accesntColor" : "border-borderColor"
       }`}
     >
-      <AlphabetImg name={from.name} />
+      <AlphabetImg name={from?.name} />
       <div className="flex flex-col gap-3">
         <div>
           <p className="text-textColor">

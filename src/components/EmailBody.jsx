@@ -14,10 +14,6 @@ const EmailBody = () => {
     currentPage,
   } = useContext(emailsPageDataContext);
 
-  console.log(currentEmail);
-
-  // console.log(currentEmail?.id);
-
   const fetchEmailBody = async () => {
     try {
       const response = await fetch(
@@ -25,17 +21,6 @@ const EmailBody = () => {
       );
       const data = await response.json();
       setEmailBody(data);
-      console.log(
-        "firstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirst"
-      );
-
-      // emailPageData[`page${currentPage}`].map((email, index) => {
-      //   if (email.id === currentEmail.id) {
-      //     emailPageData[`page${currentPage}`][index].read === true;
-
-      //     console.log(emailPageData[`page${currentPage}`][index]);
-      //   }
-      // });
 
       setEmailPageData((prev) => {
         return {
@@ -49,39 +34,20 @@ const EmailBody = () => {
           }),
         };
       });
-
-      console.log(emailPageData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handleFavourite = (e, id) => {
-    console.log(id);
-
     emailPageData.page1.map((email) => {
-      console.log(email.id, id);
       if (email.id == id) {
-        console.log("found");
         setEmailPageData((prev) => {
           return {
             ...prev,
             page1: prev.page1.map((email) => {
               if (email.id === currentEmail.id) {
-                // if (e.target.innerHTML == "Mark as Favourites") {
-                //   setCurrentEmail((prev) => {
-                //     return { ...prev, favourite: true };
-                //   });
-                //   return { ...email, favourite: true };
-                // } else {
-                //   setCurrentEmail((prev) => {
-                //     return { ...prev, favourite: false };
-                //   });
-                //   return { ...email, favourite: false };
-                // }
-
                 setCurrentEmail((prev) => {
-                  console.log(prev);
                   return { ...prev, favourite: !prev.favourite };
                 });
 
@@ -96,28 +62,13 @@ const EmailBody = () => {
     });
 
     emailPageData.page2.map((email) => {
-      console.log(email.id, id);
       if (email.id == id) {
-        console.log("found");
         setEmailPageData((prev) => {
           return {
             ...prev,
             page2: prev.page2.map((email) => {
               if (email.id === currentEmail.id) {
-                // if (e.target.innerHTML == "Mark as Favourites") {
-                //   setCurrentEmail((prev) => {
-                //     return { ...prev, favourite: true };
-                //   });
-                //   return { ...email, favourite: true };
-                // } else {
-                //   setCurrentEmail((prev) => {
-                //     return { ...prev, favourite: false };
-                //   });
-                //   return { ...email, favourite: false };
-                // }
-
                 setCurrentEmail((prev) => {
-                  console.log(prev);
                   return { ...prev, favourite: !prev.favourite };
                 });
                 return { ...email, favourite: !email.favourite };

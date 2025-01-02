@@ -8,7 +8,6 @@ const EmailList = () => {
   const {
     emailPageData,
     setEmailPageData,
-    currentEmail,
     setCurrentEmail,
     currentFilter,
     currentPage,
@@ -16,13 +15,6 @@ const EmailList = () => {
   } = useContext(emailsPageDataContext);
 
   const [filteredEmails, setFilteredEmails] = useState();
-  // console.log(emailPageData);
-
-  // const [emails, setEmails] = useState([]);
-
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [page1, setPage1] = useState(null);
-  // const [page2, setPage2] = useState(null);
 
   const handlePrevious = () => {
     if (currentPage == 1) return;
@@ -40,9 +32,6 @@ const EmailList = () => {
         "https://flipkart-email-mock.now.sh/?page=" + currentPage
       );
       const data = await response.json();
-      // console.log(data);
-
-      // setEmails(data?.list);
 
       data.list.map((item, index) => {
         data.list[index].favorite = false;
@@ -54,31 +43,18 @@ const EmailList = () => {
         [`page${currentPage}`]: data?.list || [],
       }));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    // if (currentFilter == "All Emails") {
-    //   console.log(emailPageData);
-    //   const filteredData = emailPageData[`page${currentPage}`].filter(
-    //     (email) => {
-    //       return email;
-    //     }
-    //   );
-    //   setFilteredEmails(filteredData);
-    //   console.log(filteredData);
-    // }
-
     if (currentFilter == "Unread") {
-      console.log(emailPageData);
       const filteredData = emailPageData[`page${currentPage}`].filter(
         (email) => {
           return email.read == false;
         }
       );
       setFilteredEmails(filteredData);
-      console.log(filteredData);
     }
 
     if (currentFilter == "Read") {
@@ -93,7 +69,6 @@ const EmailList = () => {
       const allPageRead = [...filteredData1, ...filteredData2];
 
       setFilteredEmails(allPageRead);
-      console.log(allPageRead);
     }
 
     if (currentFilter == "Favourites") {
@@ -108,7 +83,6 @@ const EmailList = () => {
       const allPageFavourites = [...filteredData1, ...filteredData2];
 
       setFilteredEmails(allPageFavourites);
-      console.log(allPageFavourites);
     }
   }, [currentFilter, emailPageData]);
 
@@ -117,16 +91,12 @@ const EmailList = () => {
       !emailPageData[`page${currentPage}`] ||
       emailPageData[`page${currentPage}`].length < 1
     ) {
-      console.log(" api");
       fetchEmails();
-    } else {
-      // setEmails(emailPageData[`page${currentPage}`]);
     }
   }, [currentPage]);
 
   return (
     <div className="flex w-full items-center gap-5 flex-col mt-6">
-      {/* {console.log(filteredEmails.length)} */}
       {filteredEmails && filteredEmails.length < 1 && (
         <h1 className="text-center text-textColor font-bold text-xl ">
           No Emails Found
