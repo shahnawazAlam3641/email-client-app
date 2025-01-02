@@ -59,6 +59,17 @@ const EmailList = () => {
   };
 
   useEffect(() => {
+    // if (currentFilter == "All Emails") {
+    //   console.log(emailPageData);
+    //   const filteredData = emailPageData[`page${currentPage}`].filter(
+    //     (email) => {
+    //       return email;
+    //     }
+    //   );
+    //   setFilteredEmails(filteredData);
+    //   console.log(filteredData);
+    // }
+
     if (currentFilter == "Unread") {
       console.log(emailPageData);
       const filteredData = emailPageData[`page${currentPage}`].filter(
@@ -71,23 +82,33 @@ const EmailList = () => {
     }
 
     if (currentFilter == "Read") {
-      const filteredData = emailPageData[`page${currentPage}`].filter(
-        (email) => {
-          return email.read == true;
-        }
-      );
-      setFilteredEmails(filteredData);
-      console.log(filteredData);
+      const filteredData1 = emailPageData.page1.filter((email) => {
+        return email.read == true;
+      });
+
+      const filteredData2 = emailPageData.page2.filter((email) => {
+        return email.read == true;
+      });
+
+      const allPageRead = [...filteredData1, ...filteredData2];
+
+      setFilteredEmails(allPageRead);
+      console.log(allPageRead);
     }
 
     if (currentFilter == "Favourites") {
-      const filteredData = emailPageData[`page${currentPage}`].filter(
-        (email) => {
-          return email.favourite == true;
-        }
-      );
-      setFilteredEmails(filteredData);
-      console.log(filteredData);
+      const filteredData1 = emailPageData.page1.filter((email) => {
+        return email.favourite == true;
+      });
+
+      const filteredData2 = emailPageData.page2.filter((email) => {
+        return email.favourite == true;
+      });
+
+      const allPageFavourites = [...filteredData1, ...filteredData2];
+
+      setFilteredEmails(allPageFavourites);
+      console.log(allPageFavourites);
     }
   }, [currentFilter, emailPageData]);
 
@@ -105,6 +126,13 @@ const EmailList = () => {
 
   return (
     <div className="flex w-full items-center gap-5 flex-col mt-6">
+      {/* {console.log(filteredEmails.length)} */}
+      {filteredEmails && filteredEmails.length < 1 && (
+        <h1 className="text-center text-textColor font-bold text-xl ">
+          No Emails Found
+        </h1>
+      )}
+
       {filteredEmails && (
         <section className="w-full flex flex-col gap-6 overflow-y-auto  h-screen">
           {filteredEmails.map((email) => {
@@ -116,29 +144,31 @@ const EmailList = () => {
           })}
         </section>
       )}
-      <div className="flex gap-8 mb-6">
-        <button
-          onClick={handlePrevious}
-          className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
-            currentPage == 1
-              ? "opacity-35"
-              : "hover:bg-accesntColor hover:text-white"
-          }`}
-        >
-          {"<"}
-        </button>
-        <p className="text-accesntColor font-bold"> {currentPage}</p>
-        <button
-          onClick={handleNextPage}
-          className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
-            currentPage == 2
-              ? "opacity-35"
-              : "hover:bg-accesntColor hover:text-white"
-          }`}
-        >
-          {">"}
-        </button>
-      </div>
+      {currentFilter == "Unread" && (
+        <div className="flex gap-8 mb-6">
+          <button
+            onClick={handlePrevious}
+            className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
+              currentPage == 1
+                ? "opacity-35"
+                : "hover:bg-accesntColor hover:text-white"
+            }`}
+          >
+            {"<"}
+          </button>
+          <p className="text-accesntColor font-bold"> {currentPage}</p>
+          <button
+            onClick={handleNextPage}
+            className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
+              currentPage == 2
+                ? "opacity-35"
+                : "hover:bg-accesntColor hover:text-white"
+            }`}
+          >
+            {">"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

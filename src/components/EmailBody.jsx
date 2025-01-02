@@ -59,12 +59,14 @@ const EmailBody = () => {
   const handleFavourite = (e, id) => {
     console.log(id);
 
-    emailPageData[`page${currentPage}`].map((email) => {
+    emailPageData.page1.map((email) => {
+      console.log(email.id, id);
       if (email.id == id) {
+        console.log("found");
         setEmailPageData((prev) => {
           return {
             ...prev,
-            [`page${currentPage}`]: prev[`page${currentPage}`].map((email) => {
+            page1: prev.page1.map((email) => {
               if (email.id === currentEmail.id) {
                 // if (e.target.innerHTML == "Mark as Favourites") {
                 //   setCurrentEmail((prev) => {
@@ -79,6 +81,43 @@ const EmailBody = () => {
                 // }
 
                 setCurrentEmail((prev) => {
+                  console.log(prev);
+                  return { ...prev, favourite: !prev.favourite };
+                });
+
+                return { ...email, favourite: !email.favourite };
+              } else {
+                return email;
+              }
+            }),
+          };
+        });
+      }
+    });
+
+    emailPageData.page2.map((email) => {
+      console.log(email.id, id);
+      if (email.id == id) {
+        console.log("found");
+        setEmailPageData((prev) => {
+          return {
+            ...prev,
+            page2: prev.page2.map((email) => {
+              if (email.id === currentEmail.id) {
+                // if (e.target.innerHTML == "Mark as Favourites") {
+                //   setCurrentEmail((prev) => {
+                //     return { ...prev, favourite: true };
+                //   });
+                //   return { ...email, favourite: true };
+                // } else {
+                //   setCurrentEmail((prev) => {
+                //     return { ...prev, favourite: false };
+                //   });
+                //   return { ...email, favourite: false };
+                // }
+
+                setCurrentEmail((prev) => {
+                  console.log(prev);
                   return { ...prev, favourite: !prev.favourite };
                 });
                 return { ...email, favourite: !email.favourite };
