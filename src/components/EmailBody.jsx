@@ -16,6 +16,7 @@ const EmailBody = ({ currentEmail, setCurrentEmail }) => {
       );
       const data = await response.json();
       setEmailBody(data);
+
       console.log(data);
     } catch (error) {
       console.log(error);

@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import EmailItem from "./EmailItem";
+import "../App.css";
+import { useContext } from "react";
+import emailsPageDataContext from "../context/emailsPageDataContext";
 
 const EmailList = ({ currentEmail, setCurrentEmail }) => {
-  const [emails, setEmails] = useState([]);
+  const { emailPageData, setEmailPageData } = useContext(emailsPageDataContext);
+  console.log(emailPageData);
+
+  // const [emails, setEmails] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [page1, setPage1] = useState(null);
-  const [page2, setPage2] = useState(null);
+  // const [page1, setPage1] = useState(null);
+  // const [page2, setPage2] = useState(null);
 
   const handlePrevious = () => {
     if (currentPage == 1) return;
     setCurrentPage(currentPage - 1);
   };
 
-  const nextPage = () => {
+  const handleNextPage = () => {
     if (currentPage == 2) return;
     setCurrentPage(currentPage + 1);
   };
@@ -26,20 +32,33 @@ const EmailList = ({ currentEmail, setCurrentEmail }) => {
       const data = await response.json();
       console.log(data);
 
-      setEmails(data?.list);
+      // setEmails(data?.list);
+
+      setEmailPageData((prev) => ({
+        ...prev,
+        [`page${currentPage}`]: data?.list || [],
+      }));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchEmails();
+    if (
+      !emailPageData[`page${currentPage}`] ||
+      emailPageData[`page${currentPage}`].length < 1
+    ) {
+      console.log(" api");
+      fetchEmails();
+    } else {
+      // setEmails(emailPageData[`page${currentPage}`]);
+    }
   }, [currentPage]);
 
   return (
-    <div className="flex w-full items-center gap-5 flex-col">
-      <section className="w-full  overflow-y-auto  h-screen">
-        {emails.map((email) => {
+    <div className="flex w-full items-center gap-5 flex-col mt-6">
+      <section className="w-full flex flex-col gap-6 overflow-y-auto  h-screen">
+        {emailPageData[`page${currentPage}`].map((email) => {
           return (
             <div key={email.id} onClick={() => setCurrentEmail(email)}>
               <EmailItem email={email} />
@@ -60,7 +79,7 @@ const EmailList = ({ currentEmail, setCurrentEmail }) => {
         </button>
         <p className="text-accesntColor font-bold"> {currentPage}</p>
         <button
-          onClick={nextPage}
+          onClick={handleNextPage}
           className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
             currentPage == 2
               ? "opacity-35"

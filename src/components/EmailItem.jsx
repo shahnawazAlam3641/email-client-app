@@ -9,7 +9,7 @@ const EmailItem = ({ email }) => {
   const dateString = useDateTimeStamp(date);
 
   return (
-    <div className="flex  gap-5 px-5 border border-borderColor mt-6 py-4 rounded-lg hover:cursor-pointer ">
+    <div className="flex  gap-5 px-5 border border-borderColor  py-4 rounded-lg hover:cursor-pointer ">
       <AlphabetImg name={from.name} />
       <div className="flex flex-col gap-3">
         <div>
