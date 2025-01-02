@@ -2,7 +2,7 @@ import useDateTimeStamp from "../hooks/useDateTimeStamp";
 import AlphabetImg from "./AlphabetImg";
 
 const EmailItem = ({ email }) => {
-  const { date, short_description, subject, from } = email;
+  const { date, short_description, subject, from, favourite, read } = email;
 
   //   const imgAlphabet = from?.name.split("")[0].toUpperCase();
 
@@ -24,7 +24,9 @@ const EmailItem = ({ email }) => {
         <p className="text-textColor">{short_description} </p>
         <div className="flex gap-5">
           <p className="text-textColor">{dateString} </p>
-          <p className="text-accesntColor font-medium">Favourite</p>
+          {favourite && (
+            <p className="text-accesntColor font-medium">Favourite</p>
+          )}
         </div>
       </div>
     </div>

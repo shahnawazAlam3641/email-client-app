@@ -1,9 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AlphabetImg from "./AlphabetImg";
 import useDateTimeStamp from "../hooks/useDateTimeStamp";
+import emailsPageDataContext from "../context/emailsPageDataContext";
 
-const EmailBody = ({ currentEmail, setCurrentEmail }) => {
+const EmailBody = () => {
   const [emailBody, setEmailBody] = useState();
+
+  const {
+    emailPageData,
+    setEmailPageData,
+    currentEmail,
+    setCurrentEmail,
+    currentPage,
+  } = useContext(emailsPageDataContext);
 
   console.log(currentEmail);
 
@@ -16,11 +25,71 @@ const EmailBody = ({ currentEmail, setCurrentEmail }) => {
       );
       const data = await response.json();
       setEmailBody(data);
+      console.log(
+        "firstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirstfirst"
+      );
 
-      console.log(data);
+      // emailPageData[`page${currentPage}`].map((email, index) => {
+      //   if (email.id === currentEmail.id) {
+      //     emailPageData[`page${currentPage}`][index].read === true;
+
+      //     console.log(emailPageData[`page${currentPage}`][index]);
+      //   }
+      // });
+
+      setEmailPageData((prev) => {
+        return {
+          ...prev,
+          [`page${currentPage}`]: prev[`page${currentPage}`].map((email) => {
+            if (email.id === currentEmail.id) {
+              return { ...email, read: true };
+            } else {
+              return email;
+            }
+          }),
+        };
+      });
+
+      console.log(emailPageData);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleFavourite = (e, id) => {
+    console.log(id);
+
+    emailPageData[`page${currentPage}`].map((email) => {
+      if (email.id == id) {
+        setEmailPageData((prev) => {
+          return {
+            ...prev,
+            [`page${currentPage}`]: prev[`page${currentPage}`].map((email) => {
+              if (email.id === currentEmail.id) {
+                // if (e.target.innerHTML == "Mark as Favourites") {
+                //   setCurrentEmail((prev) => {
+                //     return { ...prev, favourite: true };
+                //   });
+                //   return { ...email, favourite: true };
+                // } else {
+                //   setCurrentEmail((prev) => {
+                //     return { ...prev, favourite: false };
+                //   });
+                //   return { ...email, favourite: false };
+                // }
+
+                setCurrentEmail((prev) => {
+                  return { ...prev, favourite: !prev.favourite };
+                });
+                return { ...email, favourite: !email.favourite };
+              } else {
+                return email;
+              }
+            }),
+          };
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -43,8 +112,13 @@ const EmailBody = ({ currentEmail, setCurrentEmail }) => {
             </p>
           </div>
         </div>
-        <button className="bg-accesntColor hover:bg-transparent border-2 transition-colors duration-200 hover:text-textColor hover:border-accesntColor w-fit h-fit py-1 px-3 rounded-full text-white text-semibold">
-          Mark as Favourite
+        <button
+          onClick={(e) => handleFavourite(e, currentEmail.id)}
+          className="bg-accesntColor hover:bg-transparent border-2 transition-colors duration-200 hover:text-textColor hover:border-accesntColor w-fit h-fit py-1 px-3 rounded-full text-white text-semibold"
+        >
+          {currentEmail.favourite
+            ? "Remove from Favourites"
+            : "Mark as Favourites"}
         </button>
       </header>
 
@@ -52,7 +126,7 @@ const EmailBody = ({ currentEmail, setCurrentEmail }) => {
         dangerouslySetInnerHTML={{
           __html: emailBody?.body.replace(/<\/p>/g, "</p> <br/>"),
         }}
-        className="mx-16"
+        className="mx-16 text-textColor text-sm"
       />
     </div>
   );

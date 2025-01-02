@@ -7,13 +7,23 @@ import emailsPageDataContext from "./context/emailsPageDataContext";
 // const emailDataContext = createContext();
 function App() {
   const [currentEmail, setCurrentEmail] = useState(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [emailPageData, setEmailPageData] = useState({ page1: [], page2: [] });
+  const [currentFilter, setCurrentFilter] = useState("Unread");
 
   return (
     <>
       <emailsPageDataContext.Provider
-        value={{ emailPageData, setEmailPageData }}
+        value={{
+          emailPageData,
+          setEmailPageData,
+          currentEmail,
+          setCurrentEmail,
+          currentPage,
+          setCurrentPage,
+          currentFilter,
+          setCurrentFilter,
+        }}
       >
         <main className="m-5 ">
           <FilterNav />
