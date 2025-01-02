@@ -84,7 +84,7 @@ const EmailList = () => {
 
       setFilteredEmails(allPageFavourites);
     }
-  }, [currentFilter, emailPageData]);
+  }, [currentFilter, emailPageData, currentPage]);
 
   useEffect(() => {
     if (
