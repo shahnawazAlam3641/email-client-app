@@ -17,7 +17,7 @@ const EmailItem = ({ email }) => {
       }`}
     >
       <AlphabetImg name={from?.name} />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 ">
         <div>
           <p className="text-textColor">
             From: <span className="font-semibold">{from?.email}</span>
@@ -27,7 +27,7 @@ const EmailItem = ({ email }) => {
             <span className="font-semibold text-textColor">{subject}</span>
           </p>
         </div>
-        <p className="text-textColor">{short_description} </p>
+        <p className="text-textColor ">{short_description} </p>
         <div className="flex gap-5">
           <p className="text-textColor">{dateString} </p>
           {favourite && (

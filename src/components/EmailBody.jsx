@@ -108,7 +108,7 @@ const EmailBody = () => {
         >
           {currentEmail.favourite
             ? "Remove from Favourites"
-            : "Mark as Favourites"}
+            : "Mark as Favourite"}
         </button>
       </header>
 
