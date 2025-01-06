@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import AlphabetImg from "./AlphabetImg";
 import useDateTimeStamp from "../hooks/useDateTimeStamp";
 import emailsPageDataContext from "../context/emailsPageDataContext";
+import TextShimmer from "./TextShimmer";
 
 const EmailBody = () => {
-  const [emailBody, setEmailBody] = useState();
+  const [emailBody, setEmailBody] = useState(null);
 
   const {
     emailPageData,
@@ -112,12 +113,16 @@ const EmailBody = () => {
         </button>
       </header>
 
-      <section
-        dangerouslySetInnerHTML={{
-          __html: emailBody?.body.replace(/<\/p>/g, "</p> <br/>"),
-        }}
-        className="mx-16 text-textColor text-sm"
-      />
+      {emailBody ? (
+        <section
+          dangerouslySetInnerHTML={{
+            __html: emailBody?.body.replace(/<\/p>/g, "</p> <br/>"),
+          }}
+          className="mx-16 text-textColor text-sm"
+        />
+      ) : (
+        <TextShimmer totalLines={50} />
+      )}
     </div>
   );
 };

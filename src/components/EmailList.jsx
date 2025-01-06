@@ -8,6 +8,7 @@ const EmailList = () => {
   const {
     emailPageData,
     setEmailPageData,
+    currentEmail,
     setCurrentEmail,
     currentFilter,
     currentPage,
@@ -48,6 +49,14 @@ const EmailList = () => {
   };
 
   useEffect(() => {
+    if (currentFilter == "All Emails") {
+      const filteredData = emailPageData[`page${currentPage}`].filter(
+        (email) => {
+          return email;
+        }
+      );
+      setFilteredEmails(filteredData);
+    }
     if (currentFilter == "Unread") {
       const filteredData = emailPageData[`page${currentPage}`].filter(
         (email) => {
@@ -96,7 +105,11 @@ const EmailList = () => {
   }, [currentPage]);
 
   return (
-    <div className="flex w-full items-center gap-5 flex-col mt-6">
+    <div
+      className={`flex w-full items-center gap-5 flex-col mt-6 ${
+        currentEmail ? "hidden lg:flex" : ""
+      }`}
+    >
       {filteredEmails && filteredEmails.length < 1 && (
         <h1 className="text-center text-textColor font-bold text-xl ">
           No Emails Found
@@ -114,31 +127,32 @@ const EmailList = () => {
           })}
         </section>
       )}
-      {currentFilter == "Unread" && (
-        <div className="flex gap-8 mb-6">
-          <button
-            onClick={handlePrevious}
-            className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
-              currentPage == 1
-                ? "opacity-35"
-                : "hover:bg-accesntColor hover:text-white"
-            }`}
-          >
-            {"<"}
-          </button>
-          <p className="text-accesntColor font-bold"> {currentPage}</p>
-          <button
-            onClick={handleNextPage}
-            className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
-              currentPage == 2
-                ? "opacity-35"
-                : "hover:bg-accesntColor hover:text-white"
-            }`}
-          >
-            {">"}
-          </button>
-        </div>
-      )}
+      {currentFilter == "Unread" ||
+        (currentFilter == "All Emails" && (
+          <div className="flex gap-8 mb-6">
+            <button
+              onClick={handlePrevious}
+              className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
+                currentPage == 1
+                  ? "opacity-35"
+                  : "hover:bg-accesntColor hover:text-white"
+              }`}
+            >
+              {"<"}
+            </button>
+            <p className="text-accesntColor font-bold"> {currentPage}</p>
+            <button
+              onClick={handleNextPage}
+              className={` border-2  transition-colors duration-200 text-accesntColor  font-bold border-accesntColor px-3 rounded-md ${
+                currentPage == 2
+                  ? "opacity-35"
+                  : "hover:bg-accesntColor hover:text-white"
+              }`}
+            >
+              {">"}
+            </button>
+          </div>
+        ))}
     </div>
   );
 };
