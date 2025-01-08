@@ -11,13 +11,13 @@ const FilterNav = () => {
   };
 
   return (
-    <nav className="flex gap-2 justify-between items-center">
-      <div className="flex gap-2 items-center">
-        <span className="text-textColor">Filter By:</span>
-        <ul className="flex gap-2">
+    <nav className="flex  justify-between items-center">
+      <div className="flex gap-2 flex-wrap items-center ">
+        <span className="text-textColor text-xs md:text-sm">Filter By:</span>
+        <ul className="flex flex-wrap">
           <li
             onClick={(e) => handleFilterClick(e)}
-            className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
+            className={`text-textColor text-xs md:text-sm py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
               currentFilter == "All Emails" ? "bg-filterButtonColor" : ""
             }`}
           >
@@ -25,7 +25,7 @@ const FilterNav = () => {
           </li>
           <li
             onClick={(e) => handleFilterClick(e)}
-            className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
+            className={`text-textColor text-xs md:text-sm py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
               currentFilter == "Unread" ? "bg-filterButtonColor" : ""
             }`}
           >
@@ -33,7 +33,7 @@ const FilterNav = () => {
           </li>
           <li
             onClick={(e) => handleFilterClick(e)}
-            className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
+            className={`text-textColor text-xs md:text-sm py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
               currentFilter == "Read" ? "bg-filterButtonColor" : ""
             }`}
           >
@@ -41,7 +41,7 @@ const FilterNav = () => {
           </li>
           <li
             onClick={(e) => handleFilterClick(e)}
-            className={`text-textColor  py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
+            className={`text-textColor text-xs md:text-sm py-2 px-3 rounded-full cursor-pointer hover:bg-filterButtonColor transition-colors duration-200 ${
               currentFilter == "Favourites" ? "bg-filterButtonColor" : ""
             }`}
           >
